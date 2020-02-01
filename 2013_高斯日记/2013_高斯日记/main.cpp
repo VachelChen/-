@@ -33,20 +33,63 @@
 using namespace std;
 
 bool runnian(int year){
-    if(year%4 == 0)
-        return true;
-    else if(year%100==0&&year%4==0)
-        return true;
+    return (year%400==0 || (year%4==0 && year%100!=0));
 }
 
 int main(int argc, const char * argv[]) {
     // insert code here...
+    int y = 1777;
+    int m = 4;
+    int d = 30;
     int days;
     cin>>days;
-    
-    while(){
-        
+    for(int i=1;i<days;i++){
+        d++;
+        if(m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 )
+        {
+            if(d>31)
+            {
+                m++;
+                d=1;
+            }
+        }
+        else if(m == 2)
+        {
+            if(runnian(y))
+            {
+                if(d>29)
+                {
+                    d=1;
+                    m++;
+                }
+            }
+            else
+            {
+                if(d>28)
+                {
+                    d=1;
+                    m++;
+                }
+            }
+        }
+        else if (m == 12)
+        {
+            if(d>31)
+            {
+                m=1;
+                y++;
+                d=1;
+            }
+        }
+        else
+        {
+            if(d>30)
+            {
+                m++;
+                d=1;
+            }
+        }
     }
-    cout << "Hello, World!";
+    cout<<y<<"-"<<m<<"-"<<d<<endl;
     return 0;
 }
