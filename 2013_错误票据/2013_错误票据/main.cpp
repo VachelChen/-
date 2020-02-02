@@ -98,6 +98,10 @@ int main(int argc, const char * argv[]) {
     int newindex=0;
     for(int j=data[0];j<data[0]+index;j++){
         if(j != data[newindex++]){
+            if(newindex > index){
+                duan = j;
+                j++;
+            }
             if(j > data[newindex-1]){
                 chong = data[newindex-1];
                 newindex++;
@@ -108,7 +112,8 @@ int main(int argc, const char * argv[]) {
             }
         }
     }
+    if(chong==0)
+        chong = data[index-1];
     cout<<duan<<" "<<chong<<endl;
-    cout<<"ssss";
     return 0;
 }
