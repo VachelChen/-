@@ -73,6 +73,7 @@ int road[maxn][maxn]={0};
 int visit[maxn][maxn]={0};
 int ans=0;
 int wei=0;
+int a[10000000]={0};
 
 void dfs(int x,int y,int value){
     visit[x][y]=1;
