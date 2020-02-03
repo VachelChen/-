@@ -90,6 +90,12 @@ void bfs(){
             where[temp.x+1][temp.y]='D';
         }
         
+        if(temp.y > 0 && visit[temp.x][temp.y-1]!=1 && a[temp.x][temp.y-1]!='1') {
+            visit[temp.x][temp.y-1]=1;
+            q.push(state(temp.x,temp.y-1));
+            where[temp.x][temp.y-1]='L';
+        }
+        
         if(temp.y < m-1 && visit[temp.x][temp.y+1]!=1 && a[temp.x][temp.y+1]!= '1') {
             visit[temp.x][temp.y+1]=1;
             q.push(state(temp.x,temp.y+1));
@@ -102,11 +108,7 @@ void bfs(){
             where[temp.x-1][temp.y]='U';
         }
         
-        if(temp.y > 0 && visit[temp.x][temp.y-1]!=1 && a[temp.x][temp.y-1]!='1') {
-            visit[temp.x][temp.y-1]=1;
-            q.push(state(temp.x,temp.y-1));
-            where[temp.x][temp.y-1]='L';
-        }
+        
     }
 }
 
