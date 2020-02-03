@@ -56,46 +56,58 @@
  */
 
 #include <iostream>
+#include <queue>
 #include <algorithm>
+#include <cstring>
+#include <string>
 using namespace std;
 
 char a[31][51];
 int visit[31][51]={0};
-string ans[100];
-int ansindex=0;
+char where[31][51];
 int n,m;
 
+struct state{
+    int x,y;
+    state(int _x,int _y){
+        x=_x;
+        y=_y;
+    }
+};
 
-void dfs(int x,int y){
-    if(x == n-1 && y==m-1){
-        cout<<"get"<<endl;
-        ansindex++;
-        //ans[ansindex] = ans[ansindex-1].erase(ans[ansindex-1].size()-1);
-        return;
+void bfs(){
+    queue<state> q;
+    q.push(state(0,0));
+    visit[0][0]=1;
+    where[0][0]='S';
+    while(!q.empty()){
+        state temp = q.front();
+        q.pop();
+        if(temp.x == n-1 && temp.y == m-1)  break;
+        if(temp.x < n-1 && !visit[temp.x+1][temp.y] && a[temp.x+1][temp.y] != '1' ) {
+            visit[temp.x+1][temp.y]=1;
+            q.push(state(temp.x+1,temp.y));
+            where[temp.x+1][temp.y]='D';
+        }
+        
+        if(temp.y < m-1 && visit[temp.x][temp.y+1]!=1 && a[temp.x][temp.y+1]!= '1') {
+            visit[temp.x][temp.y+1]=1;
+            q.push(state(temp.x,temp.y+1));
+            where[temp.x][temp.y+1]='R';
+        }
+        
+        if(temp.x > 0 && visit[temp.x-1][temp.y]!=1 && a[temp.x-1][temp.y]!='1') {
+            visit[temp.x-1][temp.y]=1;
+            q.push(state(temp.x-1,temp.y));
+            where[temp.x-1][temp.y]='U';
+        }
+        
+        if(temp.y > 0 && visit[temp.x][temp.y-1]!=1 && a[temp.x][temp.y-1]!='1') {
+            visit[temp.x][temp.y-1]=1;
+            q.push(state(temp.x,temp.y-1));
+            where[temp.x][temp.y-1]='L';
+        }
     }
-    visit[x][y]=1;
-    if(x<n-1 && !visit[x+1][y] && a[x+1][y]!=1)   {
-        ans[ansindex].append("D");
-        cout<<"D";
-        dfs(x+1,y);
-    }
-    if(y<m-1 && !visit[x][y+1] && a[x][y+1]!=1)   {
-        ans[ansindex].append("R");
-        cout<<"R";
-        dfs(x,y+1);
-    }
-    if(x>0   && !visit[x-1][y] && a[x-1][y]!=1)   {
-        ans[ansindex].append("U");
-        cout<<"U";
-        dfs(x-1,y);
-    }
-    if(y>0   && !visit[x][y-1] && a[x][y-1]!=1)   {
-        ans[ansindex].append("L");
-        cout<<"L";
-        dfs(x,y-1);
-    }
-    visit[x][y]=0;
-    cout<<"循环结束一次"<<endl;
 }
 
 int main(int argc, const char * argv[]) {
@@ -105,10 +117,31 @@ int main(int argc, const char * argv[]) {
         for(int j=0;j<m;j++){
             cin>>a[i][j];
         }
-    dfs(0,0);
-    sort(ans, ans+ansindex);
-//    for(int i=0;i<ansindex;i++){
-//        cout<<ans[i]<<endl;;
-//    }
+    
+//    cout<<endl;
+//    for(int i=0;i<n;i++)
+//        for(int j=0;j<m;j++){
+//            cout<<a[i][j];
+//        }
+    
+    bfs();
+    
+    char ans[1000];
+    int ansindex=0;
+    int x=n-1,y=m-1;
+    while(where[x][y]!='S'){
+        ans[ansindex++]=where[x][y];
+        if(where[x][y] == 'D')
+            x=x-1;
+        else if(where[x][y] == 'U')
+            x=x+1;
+        else if(where[x][y] == 'R')
+            y=y-1;
+        else if(where[x][y] == 'L')
+            y=y+1;
+    }
+    for(int i=ansindex-1;i>=0;i--)
+        cout<<ans[i];
+    cout<<endl;
     return 0;
 }
