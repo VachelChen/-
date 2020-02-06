@@ -65,13 +65,13 @@ int main(int argc, const char * argv[]) {
             x++;
             i2s(x, s);
         }
-        str.append(s);
+        if(i==n)
+            str.append(s);
+        else
+            str.append(s+" ");
     }
     
-    cout<<str[0];
-    
-    for(int i=1;i<=n;i++)
-        cout<<" "<<str[i];
+    cout<<str<<endl;;
         
     return 0;
 }
