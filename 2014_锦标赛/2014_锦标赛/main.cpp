@@ -42,7 +42,7 @@ void pk(int* a, int* b, int n, int k, int v)
         return;
     }
     
-    if() //填空
+    if(b[k]>0) //填空
         b[k] = b[k1];
     else
         b[k] = b[k2];
@@ -95,6 +95,6 @@ void f(int* a, int len)
 int main()
 {
     //int a[] = {54,55,18,16,122,17,30,9,58};
-    int a[] = {60,55,18,16,122,17,30,9,58};
+    int a[] = {60,62,18,16,122,17,30,9,58};
     f(a,9);
 }
