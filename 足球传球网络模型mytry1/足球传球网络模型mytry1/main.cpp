@@ -27,15 +27,16 @@ float s2i(string str){
 
 float deltax=0;
 float deltay=0;
+float ybix=0;
 int forwardDirection=0;
 int player[12][12];
 int number=1;
 int shoufa=1;
 bool flag=false;
 map <string,int>m;
-//map <string,int>x;
-//map <string,int>y;
-//map <string,int>num;
+map <string,float>x;
+map <string,float>y;
+map <string,int>num;
 //map <string,int>shoot;
 
 void output(){
@@ -46,9 +47,36 @@ void output(){
         cout<<endl;
     }
     
-    cout<<"平均deltax:"<<deltax/forwardDirection<<endl;
-    cout<<"平均deltay:"<<deltay/forwardDirection<<endl;
-    cout<<"y/x:"<<(deltax/forwardDirection)/(deltay/forwardDirection)<<endl;
+
+    cout<<"y/x:"<<(ybix)/(forwardDirection)<<endl;
+    cout<<endl;
+    
+    
+    
+    float cw[11];
+    float fenzi,fenmu;
+    for(int i=1;i<12;i++){
+        fenzi=0;fenmu=0;
+        for(int j=1;j<12;j++){
+            for(int k=1;j<12;j++){
+                fenzi+=(player[i][j]*player[j][k]*player[i][k]);
+                fenmu+=(player[i][j]*player[i][k]);
+            }
+        }
+        cw[i]=fenzi/fenmu;
+    }
+    int shuliang=0;
+    float he = 0;
+    for (int i=1; i<12; i++) {
+        if(cw[i]>0){
+            shuliang++;
+            he+=cw[i];
+            cout<<i<<":"<<cw[i]<<endl;
+        }
+        
+    }
+    cout<<"pingjun:"<<he/shuliang<<endl;
+     cout<<endl;
 }
 
 
@@ -102,6 +130,7 @@ int main()
                 deltax=0;
                 deltay=0;
                 shoufa=1;
+                ybix=0;
                 memset(player,0,sizeof(player));
                 cout<<"第一场比赛分析开始"<<endl;
             }
@@ -115,13 +144,14 @@ int main()
                 cout<<m.size()<<"号元素"<<dID<<endl;
             }
             if(ox<dx){
-                deltax +=(s2i(dx)-s2i(ox));
+                deltax =(s2i(dx)-s2i(ox));
                 if(dy<ox){
-                    deltay +=(s2i(oy)-s2i(dy));
+                    deltay =(s2i(oy)-s2i(dy));
                 }
                 else{
-                    deltay +=(s2i(dy)-s2i(oy));
+                    deltay =(s2i(dy)-s2i(oy));
                 }
+                ybix += deltay/deltax;
                 forwardDirection++;
             }
             player[m[oID]][m[dID]]++;
@@ -132,6 +162,7 @@ int main()
                 forwardDirection=0;
                 deltax=0;
                 deltay=0;
+                ybix=0;
                 flag=false;
                 m.clear();
 //                x.clear();
@@ -150,13 +181,14 @@ int main()
                 cout<<m.size()<<"号元素"<<dID<<endl;
             }
             if(ox<dx){
-                deltax +=(s2i(dx)-s2i(ox));
+                deltax =(s2i(dx)-s2i(ox));
                 if(dy<ox){
-                    deltay +=(s2i(oy)-s2i(dy));
+                    deltay =(s2i(oy)-s2i(dy));
                 }
                 else{
-                    deltay +=(s2i(dy)-s2i(oy));
+                    deltay =(s2i(dy)-s2i(oy));
                 }
+                ybix += deltay/deltax;
                 forwardDirection++;
             }
             if(type == "Substitution"){
@@ -172,6 +204,7 @@ int main()
                 forwardDirection=0;
                 deltax=0;
                 deltay=0;
+                ybix=0;
                 flag=true;
                 m.clear();
 //                x.clear();
@@ -190,13 +223,14 @@ int main()
                 cout<<m.size()<<"号元素"<<dID<<endl;
             }
             if(ox<dx){
-                deltax +=(s2i(dx)-s2i(ox));
+                deltax =(s2i(dx)-s2i(ox));
                 if(dy<ox){
-                    deltay +=(s2i(oy)-s2i(dy));
+                    deltay =(s2i(oy)-s2i(dy));
                 }
                 else{
-                    deltay +=(s2i(dy)-s2i(oy));
+                    deltay =(s2i(dy)-s2i(oy));
                 }
+                ybix += deltay/deltax;
                 forwardDirection++;
             }
             if(type == "Substitution"){
@@ -212,6 +246,7 @@ int main()
                 forwardDirection=0;
                 deltax=0;
                 deltay=0;
+                ybix=0;
                 m.clear();
 //                x.clear();
 //                y.clear();
@@ -229,13 +264,14 @@ int main()
                 cout<<m.size()<<"号元素"<<dID<<endl;
             }
             if(ox<dx){
-                deltax +=(s2i(dx)-s2i(ox));
+                deltax =(s2i(dx)-s2i(ox));
                 if(dy<ox){
-                    deltay +=(s2i(oy)-s2i(dy));
+                    deltay =(s2i(oy)-s2i(dy));
                 }
                 else{
-                    deltay +=(s2i(dy)-s2i(oy));
+                    deltay =(s2i(dy)-s2i(oy));
                 }
+                ybix += deltay/deltax;
                 forwardDirection++;
             }
             if(type == "Substitution"){
@@ -251,9 +287,10 @@ int main()
                 forwardDirection=0;
                 deltax=0;
                 deltay=0;
+                ybix=0;
                 m.clear();
-//                x.clear();
-//                y.clear();
+                x.clear();
+                y.clear();
                 shoufa=1;
                 memset(player,0,sizeof(player));
                 cout<<"第5场比赛分析开始"<<endl;
@@ -268,19 +305,52 @@ int main()
                 cout<<m.size()<<"号元素"<<dID<<endl;
             }
             if(ox<dx){
-                deltax +=(s2i(dx)-s2i(ox));
+                deltax =(s2i(dx)-s2i(ox));
                 if(dy<ox){
-                    deltay +=(s2i(oy)-s2i(dy));
+                    deltay =(s2i(oy)-s2i(dy));
                 }
                 else{
-                    deltay +=(s2i(dy)-s2i(oy));
+                    deltay =(s2i(dy)-s2i(oy));
                 }
+                ybix += deltay/deltax;
                 forwardDirection++;
             }
             if(type == "Substitution"){
                 m[dID] = m[oID];
                 cout<<"发生一次换人"<<oID<<"->"<<dID<<endl;
             }
+            
+//            if(oID == "Huskies_F3"){
+//                x["Huskies_F3"]+=s2i(ox);
+//                y["Huskies_F3"]+=s2i(oy);
+//                num["Huskies_F3"]++;
+//            }
+//            if(oID == "Huskies_F1"){
+//                x["Huskies_F1"]+=s2i(ox);
+//                y["Huskies_F1"]+=s2i(oy);
+//                num["Huskies_F1"]++;
+//            }
+//            if(oID == "Huskies_M5"){
+//                x["Huskies_M5"]+=s2i(ox);
+//                y["Huskies_M5"]+=s2i(oy);
+//                num["Huskies_M5"]++;
+//            }
+//            if(dID == "Huskies_F3"){
+//                x["Huskies_F3"]+=s2i(dx);
+//                y["Huskies_F3"]+=s2i(dy);
+//                num["Huskies_F3"]++;
+//            }
+//            if(dID == "Huskies_F1"){
+//                x["Huskies_F1"]+=s2i(dx);
+//                y["Huskies_F1"]+=s2i(dy);
+//                num["Huskies_F1"]++;
+//            }
+//            if(dID == "Huskies_M5"){
+//                x["Huskies_M5"]+=s2i(dx);
+//                y["Huskies_M5"]+=s2i(dy);
+//                num["Huskies_M5"]++;
+//            }
+            
             player[m[oID]][m[dID]]++;
         }
         else if (matchID == "6"){
@@ -289,6 +359,7 @@ int main()
                 forwardDirection=0;
                 deltax=0;
                 deltay=0;
+                ybix=0;
                 flag=false;
                 m.clear();
 //                x.clear();
@@ -307,13 +378,14 @@ int main()
                 cout<<m.size()<<"号元素"<<dID<<endl;
             }
             if(ox<dx){
-                deltax +=(s2i(dx)-s2i(ox));
+                deltax =(s2i(dx)-s2i(ox));
                 if(dy<ox){
-                    deltay +=(s2i(oy)-s2i(dy));
+                    deltay =(s2i(oy)-s2i(dy));
                 }
                 else{
-                    deltay +=(s2i(dy)-s2i(oy));
+                    deltay =(s2i(dy)-s2i(oy));
                 }
+                ybix += deltay/deltax;
                 forwardDirection++;
             }
             if(type == "Substitution"){
@@ -328,6 +400,7 @@ int main()
                 forwardDirection=0;
                 deltax=0;
                 deltay=0;
+                ybix=0;
                 flag=true;
                 m.clear();
 //                x.clear();
@@ -346,13 +419,14 @@ int main()
                 cout<<m.size()<<"号元素"<<dID<<endl;
             }
             if(ox<dx){
-                deltax +=(s2i(dx)-s2i(ox));
+                deltax =(s2i(dx)-s2i(ox));
                 if(dy<ox){
-                    deltay +=(s2i(oy)-s2i(dy));
+                    deltay =(s2i(oy)-s2i(dy));
                 }
                 else{
-                    deltay +=(s2i(dy)-s2i(oy));
+                    deltay =(s2i(dy)-s2i(oy));
                 }
+                ybix += deltay/deltax;
                 forwardDirection++;
             }
             if(type == "Substitution"){
@@ -367,6 +441,7 @@ int main()
                 forwardDirection=0;
                 deltax=0;
                 deltay=0;
+                ybix=0;
                 flag=false;
                 m.clear();
 //                x.clear();
@@ -385,13 +460,14 @@ int main()
                 cout<<m.size()<<"号元素"<<dID<<endl;
             }
             if(ox<dx){
-                deltax +=(s2i(dx)-s2i(ox));
+                deltax =(s2i(dx)-s2i(ox));
                 if(dy<ox){
-                    deltay +=(s2i(oy)-s2i(dy));
+                    deltay =(s2i(oy)-s2i(dy));
                 }
                 else{
-                    deltay +=(s2i(dy)-s2i(oy));
+                    deltay =(s2i(dy)-s2i(oy));
                 }
+                ybix += deltay/deltax;
                 forwardDirection++;
             }
             if(type == "Substitution"){
@@ -406,6 +482,7 @@ int main()
                 forwardDirection=0;
                 deltax=0;
                 deltay=0;
+                ybix=0;
                 flag=true;
                 m.clear();
 //                x.clear();
@@ -424,13 +501,14 @@ int main()
                 cout<<m.size()<<"号元素"<<dID<<endl;
             }
             if(ox<dx){
-                deltax +=(s2i(dx)-s2i(ox));
+                deltax =(s2i(dx)-s2i(ox));
                 if(dy<ox){
-                    deltay +=(s2i(oy)-s2i(dy));
+                    deltay =(s2i(oy)-s2i(dy));
                 }
                 else{
-                    deltay +=(s2i(dy)-s2i(oy));
+                    deltay =(s2i(dy)-s2i(oy));
                 }
+                ybix += deltay/deltax;
                 forwardDirection++;
             }
             if(type == "Substitution"){
@@ -446,6 +524,7 @@ int main()
                 forwardDirection=0;
                 deltax=0;
                 deltay=0;
+                ybix=0;
                 m.clear();
 //                x.clear();
 //                y.clear();
@@ -463,13 +542,14 @@ int main()
                 cout<<m.size()<<"号元素"<<dID<<endl;
             }
             if(ox<dx){
-                deltax +=(s2i(dx)-s2i(ox));
+                deltax =(s2i(dx)-s2i(ox));
                 if(dy<ox){
-                    deltay +=(s2i(oy)-s2i(dy));
+                    deltay =(s2i(oy)-s2i(dy));
                 }
                 else{
-                    deltay +=(s2i(dy)-s2i(oy));
+                    deltay =(s2i(dy)-s2i(oy));
                 }
+                ybix += deltay/deltax;
                 forwardDirection++;
             }
             if(type == "Substitution"){
@@ -484,6 +564,7 @@ int main()
                 forwardDirection=0;
                 deltax=0;
                 deltay=0;
+                ybix=0;
                 flag=true;
                 m.clear();
 //                x.clear();
@@ -502,13 +583,14 @@ int main()
                 cout<<m.size()<<"号元素"<<dID<<endl;
             }
             if(ox<dx){
-                deltax +=(s2i(dx)-s2i(ox));
+                deltax =(s2i(dx)-s2i(ox));
                 if(dy<ox){
-                    deltay +=(s2i(oy)-s2i(dy));
+                    deltay =(s2i(oy)-s2i(dy));
                 }
                 else{
-                    deltay +=(s2i(dy)-s2i(oy));
+                    deltay =(s2i(dy)-s2i(oy));
                 }
+                ybix += deltay/deltax;
                 forwardDirection++;
             }
             if(type == "Substitution"){
@@ -523,6 +605,7 @@ int main()
                 forwardDirection=0;
                 deltax=0;
                 deltay=0;
+                ybix=0;
                 flag=false;
                 m.clear();
 //                x.clear();
@@ -541,13 +624,14 @@ int main()
                 cout<<m.size()<<"号元素"<<dID<<endl;
             }
             if(ox<dx){
-                deltax +=(s2i(dx)-s2i(ox));
+                deltax =(s2i(dx)-s2i(ox));
                 if(dy<ox){
-                    deltay +=(s2i(oy)-s2i(dy));
+                    deltay =(s2i(oy)-s2i(dy));
                 }
                 else{
-                    deltay +=(s2i(dy)-s2i(oy));
+                    deltay =(s2i(dy)-s2i(oy));
                 }
+                ybix += deltay/deltax;
                 forwardDirection++;
             }
             if(type == "Substitution"){
@@ -562,6 +646,7 @@ int main()
                 forwardDirection=0;
                 deltax=0;
                 deltay=0;
+                ybix=0;
                 flag=true;
                 m.clear();
 //                x.clear();
@@ -580,13 +665,14 @@ int main()
                 cout<<m.size()<<"号元素"<<dID<<endl;
             }
             if(ox<dx){
-                deltax +=(s2i(dx)-s2i(ox));
+                deltax =(s2i(dx)-s2i(ox));
                 if(dy<ox){
-                    deltay +=(s2i(oy)-s2i(dy));
+                    deltay =(s2i(oy)-s2i(dy));
                 }
                 else{
-                    deltay +=(s2i(dy)-s2i(oy));
+                    deltay =(s2i(dy)-s2i(oy));
                 }
+                ybix += deltay/deltax;
                 forwardDirection++;
             }
             if(type == "Substitution"){
@@ -601,6 +687,7 @@ int main()
                 forwardDirection=0;
                 deltax=0;
                 deltay=0;
+                ybix=0;
                 flag=false;
                 m.clear();
 //                x.clear();
@@ -619,13 +706,14 @@ int main()
                 cout<<m.size()<<"号元素"<<dID<<endl;
             }
             if(ox<dx){
-                deltax +=(s2i(dx)-s2i(ox));
+                deltax =(s2i(dx)-s2i(ox));
                 if(dy<ox){
-                    deltay +=(s2i(oy)-s2i(dy));
+                    deltay =(s2i(oy)-s2i(dy));
                 }
                 else{
-                    deltay +=(s2i(dy)-s2i(oy));
+                    deltay =(s2i(dy)-s2i(oy));
                 }
+                ybix += deltay/deltax;
                 forwardDirection++;
             }
             if(type == "Substitution"){
@@ -640,6 +728,7 @@ int main()
                 forwardDirection=0;
                 deltax=0;
                 deltay=0;
+                ybix=0;
                 flag=true;
                 m.clear();
 //                x.clear();
@@ -658,13 +747,14 @@ int main()
                 cout<<m.size()<<"号元素"<<dID<<endl;
             }
             if(ox<dx){
-                deltax +=(s2i(dx)-s2i(ox));
+                deltax =(s2i(dx)-s2i(ox));
                 if(dy<ox){
-                    deltay +=(s2i(oy)-s2i(dy));
+                    deltay =(s2i(oy)-s2i(dy));
                 }
                 else{
-                    deltay +=(s2i(dy)-s2i(oy));
+                    deltay =(s2i(dy)-s2i(oy));
                 }
+                ybix += deltay/deltax;
                 forwardDirection++;
             }
             if(type == "Substitution"){
@@ -679,6 +769,7 @@ int main()
                 forwardDirection=0;
                 deltax=0;
                 deltay=0;
+                ybix=0;
                 flag=false;
                 m.clear();
 //                x.clear();
@@ -697,13 +788,14 @@ int main()
                 cout<<m.size()<<"号元素"<<dID<<endl;
             }
             if(ox<dx){
-                deltax +=(s2i(dx)-s2i(ox));
+                deltax =(s2i(dx)-s2i(ox));
                 if(dy<ox){
-                    deltay +=(s2i(oy)-s2i(dy));
+                    deltay =(s2i(oy)-s2i(dy));
                 }
                 else{
-                    deltay +=(s2i(dy)-s2i(oy));
+                    deltay =(s2i(dy)-s2i(oy));
                 }
+                ybix += deltay/deltax;
                 forwardDirection++;
             }
             if(type == "Substitution"){
@@ -718,6 +810,7 @@ int main()
                 forwardDirection=0;
                 deltax=0;
                 deltay=0;
+                ybix=0;
                 flag=true;
                 m.clear();
 //                x.clear();
@@ -736,13 +829,14 @@ int main()
                 cout<<m.size()<<"号元素"<<dID<<endl;
             }
             if(ox<dx){
-                deltax +=(s2i(dx)-s2i(ox));
+                deltax =(s2i(dx)-s2i(ox));
                 if(dy<ox){
-                    deltay +=(s2i(oy)-s2i(dy));
+                    deltay =(s2i(oy)-s2i(dy));
                 }
                 else{
-                    deltay +=(s2i(dy)-s2i(oy));
+                    deltay =(s2i(dy)-s2i(oy));
                 }
+                ybix += deltay/deltax;
                 forwardDirection++;
             }
             if(type == "Substitution"){
@@ -757,6 +851,7 @@ int main()
                 forwardDirection=0;
                 deltax=0;
                 deltay=0;
+                ybix=0;
                 flag=false;
                 m.clear();
 //                x.clear();
@@ -775,13 +870,14 @@ int main()
                 cout<<m.size()<<"号元素"<<dID<<endl;
             }
             if(ox<dx){
-                deltax +=(s2i(dx)-s2i(ox));
+                deltax =(s2i(dx)-s2i(ox));
                 if(dy<ox){
-                    deltay +=(s2i(oy)-s2i(dy));
+                    deltay =(s2i(oy)-s2i(dy));
                 }
                 else{
-                    deltay +=(s2i(dy)-s2i(oy));
+                    deltay =(s2i(dy)-s2i(oy));
                 }
+                ybix += deltay/deltax;
                 forwardDirection++;
             }
             if(type == "Substitution"){
@@ -796,6 +892,7 @@ int main()
                 forwardDirection=0;
                 deltax=0;
                 deltay=0;
+                ybix=0;
                 flag=true;
                 m.clear();
 //                x.clear();
@@ -814,13 +911,14 @@ int main()
                 cout<<m.size()<<"号元素"<<dID<<endl;
             }
             if(ox<dx){
-                deltax +=(s2i(dx)-s2i(ox));
+                deltax =(s2i(dx)-s2i(ox));
                 if(dy<ox){
-                    deltay +=(s2i(oy)-s2i(dy));
+                    deltay =(s2i(oy)-s2i(dy));
                 }
                 else{
-                    deltay +=(s2i(dy)-s2i(oy));
+                    deltay =(s2i(dy)-s2i(oy));
                 }
+                ybix += deltay/deltax;
                 forwardDirection++;
             }
             if(type == "Substitution"){
@@ -836,7 +934,7 @@ int main()
     }
         
 //        if(matchID == "1")  continue;
-//        if(matchID != "2")  break;
+//        if(matchID != "6")  break;
 //        if(type == "Substitution"){
 //            m[dID]=m[oID];      //替补上场
 //            cout<<"替补登场"<<endl;
@@ -864,38 +962,27 @@ int main()
 //    }
 //
 //
-//    cout<<"x:"<<x["Huskies_F1"]/num["Huskies_F1"]<<" y:"<<y["Huskies_F1"]/num["Huskies_F1"]<<" num:"<<num["Huskies_F1"]<<endl;
 //    cout<<"x:"<<x["Huskies_F2"]/num["Huskies_F2"]<<" y:"<<y["Huskies_F2"]/num["Huskies_F2"]<<" num:"<<num["Huskies_F2"]<<endl;
-//    cout<<"x:"<<x["Huskies_F3"]/num["Huskies_F3"]<<" y:"<<y["Huskies_F3"]/num["Huskies_F3"]<<" num:"<<num["Huskies_F3"]<<endl;
+//    cout<<"x:"<<x["Huskies_M4"]/num["Huskies_M4"]<<" y:"<<y["Huskies_M4"]/num["Huskies_M4"]<<" num:"<<num["Huskies_M4"]<<endl;
 //    cout<<"x:"<<x["Huskies_D1"]/num["Huskies_D1"]<<" y:"<<y["Huskies_D1"]/num["Huskies_D1"]<<" num:"<<num["Huskies_D1"]<<endl;
-//    cout<<"x:"<<x["Huskies_D2"]/num["Huskies_D2"]<<" y:"<<y["Huskies_D2"]/num["Huskies_D2"]<<" num:"<<num["Huskies_D2"]<<endl;
-//    cout<<"x:"<<x["Huskies_D3"]/num["Huskies_D3"]<<" y:"<<y["Huskies_D3"]/num["Huskies_D3"]<<" num:"<<num["Huskies_D3"]<<endl;
-//    cout<<"x:"<<x["Huskies_D4"]/num["Huskies_D4"]<<" y:"<<y["Huskies_D4"]/num["Huskies_D4"]<<" num:"<<num["Huskies_D4"]<<endl;
-//    cout<<"x:"<<x["Huskies_M1"]/num["Huskies_M1"]<<" y:"<<y["Huskies_M1"]/num["Huskies_M1"]<<" num:"<<num["Huskies_M1"]<<endl;
-//    cout<<"x:"<<x["Huskies_M2"]/num["Huskies_M2"]<<" y:"<<y["Huskies_M2"]/num["Huskies_M2"]<<" num:"<<num["Huskies_M2"]<<endl;
-//    cout<<"x:"<<x["Huskies_M3"]/num["Huskies_M3"]<<" y:"<<y["Huskies_M3"]/num["Huskies_M3"]<<" num:"<<num["Huskies_M3"]<<endl;
+//    cout<<"x:"<<x["Huskies_D5"]/num["Huskies_D5"]<<" y:"<<y["Huskies_D5"]/num["Huskies_D5"]<<" num:"<<num["Huskies_D5"]<<endl;
 //    cout<<"x:"<<x["Huskies_G1"]/num["Huskies_G1"]<<" y:"<<y["Huskies_G1"]/num["Huskies_G1"]<<" num:"<<num["Huskies_G1"]<<endl;
+//    cout<<"x:"<<x["Huskies_D4"]/num["Huskies_D4"]<<" y:"<<y["Huskies_D4"]/num["Huskies_D4"]<<" num:"<<num["Huskies_D4"]<<endl;
+//    cout<<"x:"<<x["Huskies_D3"]/num["Huskies_D3"]<<" y:"<<y["Huskies_D3"]/num["Huskies_D3"]<<" num:"<<num["Huskies_D3"]<<endl;
+//    cout<<"x:"<<x["Huskies_M1"]/num["Huskies_M1"]<<" y:"<<y["Huskies_M1"]/num["Huskies_M1"]<<" num:"<<num["Huskies_M1"]<<endl;
+//    cout<<"x:"<<x["Huskies_D2"]/num["Huskies_D2"]<<" y:"<<y["Huskies_D2"]/num["Huskies_D2"]<<" num:"<<num["Huskies_D2"]<<endl;
+//    cout<<"x:"<<x["Huskies_M6"]/num["Huskies_M6"]<<" y:"<<y["Huskies_M6"]/num["Huskies_M6"]<<" num:"<<num["Huskies_M6"]<<endl;
+//    cout<<"x:"<<x["Huskies_M3"]/num["Huskies_M3"]<<" y:"<<y["Huskies_M3"]/num["Huskies_M3"]<<" num:"<<num["Huskies_M3"]<<endl;
     
-    
+//    cout<<"x:"<<x["Huskies_F3"]/num["Huskies_F3"]<<" y:"<<y["Huskies_F3"]/num["Huskies_F3"]<<" num:"<<num["Huskies_F3"]<<endl;
+//    cout<<"x:"<<x["Huskies_F1"]/num["Huskies_F1"]<<" y:"<<y["Huskies_F1"]/num["Huskies_F1"]<<" num:"<<num["Huskies_F1"]<<endl;
+//    cout<<"x:"<<x["Huskies_M5"]/num["Huskies_M5"]<<" y:"<<y["Huskies_M5"]/num["Huskies_M5"]<<" num:"<<num["Huskies_M5"]<<endl;
+//
 //    cout<<"shot:"<<endl<<"Huskies_F1:"<<shoot["Huskies_F1"]<<endl;
 //    cout<<"Huskies_F2:"<<shoot["Huskies_F2"]<<endl;
 //    //cout<<"Huskies_F3:"<<shoot["Huskies_F3"];
 //    
-//    float cw[11];
-//    float fenzi,fenmu;
-//    for(int i=1;i<12;i++){
-//        fenzi=0;fenmu=0;
-//        for(int j=1;j<12;j++){
-//            for(int k=1;j<12;j++){
-//                fenzi+=(player[i][j]*player[j][k]*player[i][k]);
-//                fenmu+=(player[i][j]*player[i][k]);
-//            }
-//        }
-//        cw[i]=fenzi/fenmu;
-//    }
-//    for (int i=1; i<12; i++) {
-//        cout<<i<<":"<<cw[i]<<endl;
-//    }
+    
     
     return EXIT_SUCCESS;
 }
