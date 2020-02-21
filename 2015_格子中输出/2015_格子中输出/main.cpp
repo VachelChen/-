@@ -38,7 +38,7 @@ void StringInGrid(int width, int height, const char* s)
     printf("|");
     
     //printf("%*s%s%*s",_____________________________________________);  //填空
-    printf("%*s%s%*s",(width-2-strlen(buf))/2," ",buf,(width-2-strlen(buf))/2," ");  //填空
+    printf("%*s%s%*s",(width-2-strlen(buf))/2,"",buf,(width-2-strlen(buf)+1)/2,"");  //填空
               
     printf("|\n");
     
@@ -55,6 +55,6 @@ void StringInGrid(int width, int height, const char* s)
 
 int main()
 {
-    StringInGrid(20,6,"abcd1234");
+    StringInGrid(20,6,"abcd12344");
     return 0;
 }
