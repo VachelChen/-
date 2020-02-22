@@ -1,44 +1,65 @@
-//
-//  main.cpp
-//  2016_最大比例
-//
-//  Created by VachelChen on 2020/2/21.
-//  Copyright © 2020 VachelChen. All rights reserved.
-//
-
 #include <iostream>
-#include <algorithm>
 using namespace std;
+typedef long long ll;
 
-int n;
-long long x[100];
+const int N=110;
+const ll MAX=1000000000000;
+ll a[N];
 
-bool cmp(int a,int b){
-    return a>b;
+ll gcd(ll a,ll b)
+{
+    if (!b) return a;
+    return gcd(b,a%b);
 }
 
-long long gcd(long long a,long long b){
-    return a%b==0?b:gcd(b, a%b);
-}
+struct Frac
+{
+    ll up,dw;
+    Frac() {}
+    Frac(ll a,ll b) {
+        if (a==0) {
+            up=0;dw=1;
+            return;
+        }
+        ll g=gcd(a,b);
+        up=a/g;dw=b/g;
+    }
+    bool operator <(const Frac &b) const {
+        return up*b.dw<dw*b.up;
+    }
+    bool operator ==(const Frac &b) const {
+        return !((*this)<b)&&!(b<(*this));
+    }
+    Frac operator /(const Frac &b) {
+        return Frac(up*b.dw,dw*b.up);
+    }
+    void print() {
+        printf("%I64d/%I64d\n",up,dw);
+    }
+} f[N];
 
-int main(int argc, const char * argv[]) {
-    cin>>n;
-    long long a=0,b=0;
-    for(int i=0;i<n;i++)
-        cin>>x[i];
-    sort(x,x+n,cmp);
-    int minRatio=1;
-    for(int i=1;i<n;i++){
-        if((x[i]*1.0)/(x[i-1]*1.0)<minRatio){
-            minRatio = min((x[i]*1.0)/(x[i-1]*1.0),minRatio*1.0);
-            a = x[i];
-            b = x[i-1];
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    for (int i=0;i<n;i++) {
+        scanf("%I64d",&a[i]);
+    }
+    sort(a,a+n);
+    n=unique(a,a+n)-a-1;
+    for (int i=0;i<n;i++) {
+        f[i]=Frac(a[i+1],a[i]);
+    }
+    Frac ans(MAX,1);
+    while (n>1) {
+        sort(f,f+n);
+        if (f[0]<ans) ans=f[0];
+        n=unique(f,f+n)-f-1;
+        for (int i=0;i<n;i++) {
+            f[i]=f[i+1]/f[i];
         }
     }
-    
-    long long y = gcd(a,b);
-    
-    cout<<b/y<<"/"<<a/y<<endl;
-    
+    if (f[0]<ans) ans=f[0];
+    ans.print();
     return 0;
 }
