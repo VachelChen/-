@@ -15,6 +15,8 @@ using namespace std;
 
 int a[3][4];
 int visit[3][4];
+int num;
+bool flag;
 vector<string> v;
 
 string i2s(int x){
@@ -25,48 +27,57 @@ string i2s(int x){
     return s;
 }
 
-void dfs(int x,int y,int num,string five){
+void dfs(int x,int y){
     
     visit[x][y] = 1;
-
+    num++;
     if(num == 5){
-        sort(five.begin(),five.end());
-        int i;
-        for(i=0;i<v.size();i++){
-            if(v[i].find(five) != string::npos ){
-                break;
-            }
-        }
-        if(i == v.size()){
-            v.push_back(five);
-        }
+        flag = true;
         return ;
     }
     
-    if(x<2 && !visit[x+1][y]) dfs(x+1, y, num+1, five.append(i2s(a[x+1][y])));
-    if(x>0 && !visit[x-1][y]) dfs(x-1, y, num+1, five.append(i2s(a[x-1][y])));
-    if(y<3 && !visit[x][y+1]) dfs(x, y+1, num+1, five.append(i2s(a[x][y+1])));
-    if(y>0 && !visit[x][y-1]) dfs(x, y-1, num+1, five.append(i2s(a[x][y-1])));
+    if(x<2 && !visit[x+1][y] && a[x+1][y]) dfs(x+1, y);
+    if(x>0 && !visit[x-1][y] && a[x-1][y]) dfs(x-1, y);
+    if(y<3 && !visit[x][y+1] && a[x][y+1]) dfs(x, y+1);
+    if(y>0 && !visit[x][y-1] && a[x][y-1]) dfs(x, y-1);
     
-    visit[x][y]=0;
 }
 
 int main(int argc, const char * argv[]) {
     
-
-    int n=1;
-    for(int x=1;x<3;x++){
-        for(int y=0;y<4;y++){
-            a[x][y]=n++;
-        }
-    }
+    int value[12]={0,0,0,0,0,0,0,1,1,1,1,1};
+    int ans=0;
     
-    for(int x=1;x<3;x++){
-        for(int y=0;y<4;y++){
-            memset(visit, 0, sizeof(visit));
-            dfs(x,y,1,i2s(a[x][y]));
+    do{
+        int n=0;
+        memset(visit, 0, sizeof(visit));
+        
+        for(int x=0;x<3;x++){
+            for(int y=0;y<4;y++){
+                a[x][y] = value[n++];
+            }
         }
-    }
-    cout<<v.size()<<endl;
+        
+        bool doubleJump = false;
+        
+        for(int x=0;x<3;x++){
+            for(int y=0;y<4;y++){
+                if(a[x][y] == 1){
+                    flag = false;
+                    num = 0;
+                    dfs(x,y);
+                    doubleJump = true;
+                    break;
+                }
+            }
+            if(doubleJump)  break;
+        }
+        
+        if(flag){
+            ans++;
+        }
+    }while(next_permutation(value,value+12));
+    
+    cout<<ans<<endl;
     return 0;
 }
