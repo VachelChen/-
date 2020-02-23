@@ -62,6 +62,10 @@ int main()
 //    }
 //    if (f[0]<ans) ans=f[0];
 //    ans.print();
-    cout<<(1/10000000 * log(1/10000000)/log(2) + (1-1/10000000) * log(1-1/10000000)/log(2))*-1<<endl;
+    float a = 1.0/10000000.0;
+    
+    printf("%.1f\n",(a * (log(a)/log(2.0))*10000000.0));
+    
+
     return 0;
 }

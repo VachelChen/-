@@ -3,6 +3,17 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "main:main.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "log(2)">
+            </PersistentString>
+            <PersistentString
+               value = "log(a)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "gcd(long long, long long):main.cpp">
          <PersistentStrings>
             <PersistentString
