@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
 typedef long long ll;
 
@@ -40,26 +41,27 @@ struct Frac
 
 int main()
 {
-    int n;
-    scanf("%d",&n);
-    for (int i=0;i<n;i++) {
-        scanf("%I64d",&a[i]);
-    }
-    sort(a,a+n);
-    n=unique(a,a+n)-a-1;
-    for (int i=0;i<n;i++) {
-        f[i]=Frac(a[i+1],a[i]);
-    }
-    Frac ans(MAX,1);
-    while (n>1) {
-        sort(f,f+n);
-        if (f[0]<ans) ans=f[0];
-        n=unique(f,f+n)-f-1;
-        for (int i=0;i<n;i++) {
-            f[i]=f[i+1]/f[i];
-        }
-    }
-    if (f[0]<ans) ans=f[0];
-    ans.print();
+//    int n;
+//    scanf("%d",&n);
+//    for (int i=0;i<n;i++) {
+//        scanf("%I64d",&a[i]);
+//    }
+//    sort(a,a+n);
+//    n=unique(a,a+n)-a-1;
+//    for (int i=0;i<n;i++) {
+//        f[i]=Frac(a[i+1],a[i]);
+//    }
+//    Frac ans(MAX,1);
+//    while (n>1) {
+//        sort(f,f+n);
+//        if (f[0]<ans) ans=f[0];
+//        n=unique(f,f+n)-f-1;
+//        for (int i=0;i<n;i++) {
+//            f[i]=f[i+1]/f[i];
+//        }
+//    }
+//    if (f[0]<ans) ans=f[0];
+//    ans.print();
+    cout<<(1/10000000 * log(1/10000000)/log(2) + (1-1/10000000) * log(1-1/10000000)/log(2))*-1<<endl;
     return 0;
 }
