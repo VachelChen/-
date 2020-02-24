@@ -17,8 +17,8 @@ bool walkOut;
 
 void dfs(int x,int y){
     visit[x][y] = 1;
-    if(direction[x][y] == 'U' && x == 0)    walkOut=true;
-    if(direction[x][y] == 'L' && y == 0)    walkOut=true;
+    if(direction[x][y] == 'U' && x == 1)    walkOut=true;
+    if(direction[x][y] == 'L' && y == 1)    walkOut=true;
     if(direction[x][y] == 'R' && y == 10)    walkOut=true;
     if(direction[x][y] == 'D' && x == 10)    walkOut=true;
     
