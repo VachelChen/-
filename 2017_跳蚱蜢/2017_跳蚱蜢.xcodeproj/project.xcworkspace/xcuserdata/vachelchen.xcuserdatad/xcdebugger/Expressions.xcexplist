@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "main:main.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "swap3(temp.str)">
+            </PersistentString>
+            <PersistentString
+               value = "swap4(temp.str)">
+            </PersistentString>
+            <PersistentString
+               value = "swap2(temp.str)">
+            </PersistentString>
+            <PersistentString
+               value = "swap1(temp.str)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
