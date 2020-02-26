@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "main:main.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "value">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "dfs(int, int, int):main.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "judge1(int, int, int):main.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "!visit[x][y]">
+            </PersistentString>
+            <PersistentString
+               value = "!a[x][y]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
