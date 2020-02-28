@@ -13,7 +13,7 @@
 using namespace std;
 
 int n;
-int a[100];
+int a[101];
 bool flag = false;
 bool dp[10000];
 
@@ -36,23 +36,18 @@ int main(){
         for(int j=0;j<10000;j++)
             if(dp[j])   dp[j+a[i]] = true;
         
-        //if(a[i] == 1)   flag = true;
     }
-    
-//    if(flag){
-//        cout<<"0"<<endl;
-//        return 0;
-//    }
+    int ans = 0;
     
     if(maxn != 1){
         cout<<"INF"<<endl;
         return 0;
     }
-    
-    int ans = 0;
-    for(int j=0;j<10000;j++)
+    else{
+        for(int j=0;j<10000;j++)
             if(!dp[j])   ans++;
-    
+    }
     cout<<ans<<endl;
     return 0;
 }
+
