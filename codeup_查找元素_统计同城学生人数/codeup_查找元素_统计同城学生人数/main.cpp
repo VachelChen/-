@@ -9,22 +9,35 @@
 #include <iostream>
 using namespace std;
 
+struct student{
+    string num;
+    string name;
+    string sex;
+    int age;
+};
+
 int main(int argc, const char * argv[]) {
     int n;
-    cin >> n;
-    while (n) {
-        int a[1000];
-        for(int i=0;i<n;i++)
-            cin>>a[i];
-        int target;
-        cin >>target;
-        int ans=0;
-        for (int i=0; i<n; i++) {
-            if(a[i] == target)
-                ans++;
+    while(cin>>n){
+    student stu[1000];
+    for(int i=0;i<n;i++){
+        cin>>stu[i].num>>stu[i].name>>stu[i].sex>>stu[i].age;
+    }
+    int m;
+    cin >>m;
+    for(int i=0;i<m;i++){
+        string number;
+        cin>>number;
+        int j;
+        for(j=0;j<n;j++){
+            if(stu[j].num == number){
+                cout<<stu[j].num<<" "<<stu[j].name<<" "<<stu[j].sex<<" "<<stu[j].age<<endl;;
+                break;
+            }
         }
-        cout<<ans<<endl;
-        cin >> n;
+        if(j==n)
+            cout<<"No Answer!"<<endl;
+    }
     }
     return 0;
 }
