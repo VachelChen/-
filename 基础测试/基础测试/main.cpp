@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <map>
+#include <algorithm>
 #include <queue>
 using namespace std;
 
@@ -58,18 +59,8 @@ bool isSymmetric(TreeNode* root) {
 }
 
 int main(){
-    TreeNode x,y,z,a,b;
-    x.val = 1;
-    y.val = 2;
-    z.val = 2;
-    a.val = 2;
-    b.val = 2;
-    x.left = &y;
-    x.right = &z;
-    y.left = &a;
-    y.right = NULL;
-    z.left = &b;
-    z.right = NULL;
-    cout<<isSymmetric(&x)<<endl;
+    string x="123";
+    reverse(x.begin(),x.end());
+    cout<<x<<endl;
     return 0;
 }
