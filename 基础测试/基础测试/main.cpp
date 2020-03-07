@@ -59,8 +59,10 @@ bool isSymmetric(TreeNode* root) {
 }
 
 int main(){
-    string x="123";
-    reverse(x.begin(),x.end());
-    cout<<x<<endl;
+    string strAns="3";
+    while (strAns.size() < 4) {
+        strAns.insert(strAns.begin(), '0');
+    }
+    cout<<strAns<<endl;
     return 0;
 }
