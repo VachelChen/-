@@ -22,9 +22,19 @@ int workOut(int n,int p){
     return ans;
 }
 
+int cal(int n,int p){
+    int ans = 0;
+    while(n){
+        ans += n/p;
+        n /= p;
+    }
+    return ans;
+}
+
 int main(){
     int n,p;
     cin >> n >> p;
-    cout<<workOut(n,p);
+    cout<<workOut(n,p)<<endl;
+    cout<<cal(n,p)<<endl;;
     return 0;
 }
