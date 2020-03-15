@@ -12,29 +12,50 @@
 #include <queue>
 using namespace std;
 
-int workOut(int n,int p){
-    int ans = 0;
-    int op = p;
-    while( n/p>=1 ){
-        ans += n/p;
-        p = p * op;
+struct ListNode {
+     int val;
+     ListNode *next;
+     ListNode(int x) : val(x), next(NULL) {}
+};
+
+
+ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+    ListNode* a = l1;
+    ListNode* b = l2;
+    ListNode head(0);
+    ListNode* c = &head;
+    while(a && b){
+        ListNode p(0);
+        if(a->val > b->val){
+            p.val = b->val;
+            p.next = NULL;
+            b = b->next;
+        }
+        else{
+            p.val = a->val;
+            p.next = NULL;
+            a = a->next;
+        }
+        c->next = &p;
+        c = c->next;
     }
-    return ans;
+    c->next = a?a:b;
+    return head.next;
 }
 
-int cal(int n,int p){
-    int ans = 0;
-    while(n){
-        ans += n/p;
-        n /= p;
-    }
-    return ans;
-}
 
 int main(){
-    int n,p;
-    cin >> n >> p;
-    cout<<workOut(n,p)<<endl;
-    cout<<cal(n,p)<<endl;;
+    ListNode* l1;
+    ListNode a(1),b(2);
+    l1 = &a;
+    l1 -> next = &b;
+    
+    ListNode* l2;
+    ListNode c(1),d(3);
+    l2 = &c;
+    l2 -> next = &d;
+    
+    ListNode* l3 = mergeTwoLists(l1, l2);
+    
     return 0;
 }

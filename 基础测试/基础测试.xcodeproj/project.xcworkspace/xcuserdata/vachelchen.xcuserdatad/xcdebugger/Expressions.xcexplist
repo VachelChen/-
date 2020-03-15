@@ -10,5 +10,13 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "mergeTwoLists(ListNode*, ListNode*):main.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "head">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>
