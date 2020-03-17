@@ -7,32 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "666ECE10-389C-4893-BF9F-26E588FFBBC0"
+            uuid = "60651A32-7039-4116-8CD2-5B326792C756"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x57fa;&#x7840;&#x6d4b;&#x8bd5;/main.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "main()"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7F9501D8-1489-4A11-92EA-1F03A02E9282"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x57fa;&#x7840;&#x6d4b;&#x8bd5;/main.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "mergeTwoLists(l1, l2)"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "deleteDuplicates(head)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
