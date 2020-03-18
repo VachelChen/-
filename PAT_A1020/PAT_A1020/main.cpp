@@ -39,7 +39,7 @@ node* getTree(int postL, int postR, int inL ,int inR){
     }
     int numLeft = i - inL;
     
-    x->left = getTree(postL, postL+numLeft-1, inL, inL+numLeft-1);
+    x->left = getTree(postL, postL+numLeft-1, inL, i-1);
     x->right = getTree(postL+numLeft, postR-1, i+1, inR);
     
     return x;
