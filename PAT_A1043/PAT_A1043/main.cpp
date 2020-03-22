@@ -38,6 +38,7 @@ void insertTree(node* root,int x){
         }
     }
     
+    
 }
 
 int n;
