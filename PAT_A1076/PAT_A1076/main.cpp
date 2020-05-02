@@ -11,80 +11,59 @@
 #include <queue>
 #include <set>
 #include <map>
+#include <vector>
 using namespace std;
 
-int N,L,pn;
-bool G[1010][1010];
+const int maxv =1010;
 struct node{
-    int s;
-    int deep;
+    int id;
+    int layer;
 };
-queue <node> q;
-map <int,int> m;
-set <int> s;
-int ans;
+vector<node> g[maxv];
+bool inq[maxv] = {false};
 
-void BFS(){
-
+int BFS(int s,int L){
+    int num = 0;
+    queue<node> q;
+    node start;
+    start.id = s;
+    start.layer = 0;
+    q.push(start);
+    inq[start.id] = true;
     while (!q.empty()) {
-        
-        node temp = q.front();
+        node topnode = q.front();
         q.pop();
-        if (temp.deep>L) {
-            break;
-        }
-        int temps = temp.s;
-        int cnt = 0;
-        for (int i=1; i<=N; i++) {
-            //if(cnt == m[i]) break;
-            if(G[temps][i]){
-                cnt++;
-                if(s.find(i) == s.end()){
-                    ans++;
-                    node newx;
-                    newx.s = i;
-                    newx.deep = temp.deep+1;
-                    q.push(newx);
-                    s.insert(i);
-                }
-                
+        int u = topnode.id;
+        for(int i=0;i<g[u].size();i++){
+            node next = g[u][i];
+            next.layer = topnode.layer+1;
+            if (inq[next.id] == false && next.layer <= L) {
+                q.push(next);
+                inq[next.id] = true;
+                num++;
             }
         }
     }
-    
+    return num;
 }
 
-int main(int argc, const char * argv[]) {
-    cin>>N>>L;
-    for (int i=1; i<=N; i++) {
-        int f;
-        cin >>f;
-        m[i] = f;
-        for(int j=0;j<f;j++){
-            int n;
-            cin >> n;
-            G[n][i] = true;
+int main(){
+    node user;
+    int n,L,numF,idF;
+    cin >> n >> L;
+    for(int i=1;i<=n;i++){
+        user.id = i;
+        cin >> numF;
+        for(int j = 0; j< numF; j++){
+            cin >> idF;
+            g[idF].push_back(user);
         }
     }
-    cin >> pn;
-    for (int i=0; i<pn; i++) {
-        while (!q.empty()) {
-            q.pop();
-        }
-        while (!s.empty()) {
-            s.clear();
-        }
-        ans = 0;
-        int x;
-        cin >> x;
-        s.insert(x);
-        node nodex;
-        nodex.s = x;
-        nodex.deep = 1;
-        q.push(nodex);
-        BFS();
-        cout<<ans<<endl;
+    int query,s;
+    cin >> query;
+    for(int i=0;i<query;i++){
+        memset(inq, false, sizeof(inq));
+        cin >> s;
+        cout<<BFS(s, L)<<endl;
     }
-    
-    return 0;
 }
