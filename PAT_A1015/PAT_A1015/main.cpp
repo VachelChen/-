@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <sstream>
+#define PI 3;
 using namespace std;
 
 string i2s(int x){
@@ -32,17 +33,14 @@ int temp[maxn];
 bool prime[maxn];
 
 int main(int argc, const char * argv[]) {
-    
-    
-    
-    
+   
     int n,d;
     scanf("%d",&n);
     while (n>=0) {
         scanf("%d",&d);
-        
-        
-        
+
+
+
         scanf("%d",&n);
     }
     return 0;
