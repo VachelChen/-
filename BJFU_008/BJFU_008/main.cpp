@@ -1,6 +1,6 @@
 //
 //  main.cpp
-//  BJFU_006
+//  BJFU_007
 //
 //  Created by VachelChen on 2020/6/22.
 //  Copyright © 2020 VachelChen. All rights reserved.
@@ -29,18 +29,20 @@ void init(bookList &l){
     l.length = 0;
 }
 
-void inserList(bookList &l,int i,book b){
+bool inserList(bookList &l,int i,book b){
     if (i<1 || i>l.length+1) {
-        return;
+        printf("Sorry，the position to be inserted is invalid!\n");
+        return false;
     }
     if (l.length == maxn) {
-        return;
+        return false;
     }
     for (int j=l.length; j>i-1; j--) {
         l.elem[j] = l.elem[j-1];
     }
     l.elem[i-1] = b;
     l.length++;
+    return true;
 }
 
 int main(){
@@ -55,23 +57,11 @@ int main(){
     }
     int m;
     scanf("%d",&m);
-    for (int i=0; i<m; i++) {
-        char favorite[100];
-        scanf("%s",favorite);
-        int num=0;
-        for (int j=0; j<n; j++) {
-            if (strcmp(l.elem[j].name,favorite)==0) {
-                num++;
-            }
+        book temp;
+        scanf("%s %s %lf",temp.id,temp.name,&temp.price);
+        if(inserList(l, m, temp))
+        for (int i=0; i<l.length; i++) {
+            printf("%s %s %.2lf\n",l.elem[i].id,l.elem[i].name,l.elem[i].price);
         }
-        if(!num)    printf("Sorry，there is no your favourite!\n");
-        else{
-            printf("%d\n",num);
-            for (int j=0; j<n; j++) {
-                if (strcmp(l.elem[j].name,favorite)==0) {
-                    printf("%s %s %.2lf\n",l.elem[j].id,l.elem[j].name,l.elem[j].price);
-                }
-            }
-        }
-    }
+    return 0;
 }

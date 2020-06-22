@@ -1,6 +1,6 @@
 //
 //  main.cpp
-//  BJFU_006
+//  BJFU_007
 //
 //  Created by VachelChen on 2020/6/22.
 //  Copyright © 2020 VachelChen. All rights reserved.
@@ -43,6 +43,14 @@ void inserList(bookList &l,int i,book b){
     l.length++;
 }
 
+void findId(bookList &l,int x){
+    if (x<1 || x>l.length) {
+        printf("Sorry，the book on the best position doesn't exist!\n");
+        return ;
+    }
+    printf("%s %s %.2lf\n",l.elem[x-1].id,l.elem[x-1].name,l.elem[x-1].price);
+}
+
 int main(){
     int n;
     bookList l;
@@ -56,22 +64,9 @@ int main(){
     int m;
     scanf("%d",&m);
     for (int i=0; i<m; i++) {
-        char favorite[100];
-        scanf("%s",favorite);
-        int num=0;
-        for (int j=0; j<n; j++) {
-            if (strcmp(l.elem[j].name,favorite)==0) {
-                num++;
-            }
-        }
-        if(!num)    printf("Sorry，there is no your favourite!\n");
-        else{
-            printf("%d\n",num);
-            for (int j=0; j<n; j++) {
-                if (strcmp(l.elem[j].name,favorite)==0) {
-                    printf("%s %s %.2lf\n",l.elem[j].id,l.elem[j].name,l.elem[j].price);
-                }
-            }
-        }
+        int x;
+        scanf("%d",&x);
+        findId(l,x);
     }
+    return 0;
 }
