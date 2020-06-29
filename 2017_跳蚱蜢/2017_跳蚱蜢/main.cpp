@@ -5,89 +5,63 @@
 //  Created by VachelChen on 2020/2/24.
 //  Copyright © 2020 VachelChen. All rights reserved.
 //
-
 #include <iostream>
 #include <queue>
-#include <map>
 using namespace std;
-
-string start = "012345678";
-string over = "087654321";
-
-struct state{
-    int deep;
-    string str;
-    state(int _deep,string _str){
-        deep = _deep;
-        str = _str;
+ 
+int d[4]={-2,-1,1,2};
+ 
+int state[9];
+int zp;//空盘位置
+int visited[876543211]={0};
+ 
+queue<int> q;
+queue<int> cnt;
+ 
+void setState(int num){
+    for(int i=8;i>=0;i--){
+        if(num%10==0)
+            zp=i;
+        state[i]=num%10;
+        num/=10;
     }
-};
-
-string swap1(string str){
-    string s = str;
-    int zero = s.find("0");
-    int change = (zero - 2 + 9)%9;
-    char temp;
-    temp = s[zero];
-    s[zero] = s[change];
-    s[change] = temp;
-    return s;
 }
-
-string swap2(string str){
-    string s = str;
-    int zero = s.find("0");
-    int change = (zero - 1 + 9)%9;
-    char temp;
-    temp = s[zero];
-    s[zero] = s[change];
-    s[change] = temp;
-    return s;
+ 
+int getVal(){
+    int num=0;
+    for(int i=0;i<9;i++)
+        num=num*10+state[i];
+    return num;
 }
-
-string swap3(string str){
-    string s = str;
-    int zero = s.find("0");
-    int change = (zero + 1 + 9)%9;
-    char temp;
-    temp = s[zero];
-    s[zero] = s[change];
-    s[change] = temp;
-    return s;
+ 
+bool extend(){
+    int num=q.front();
+    if(num==87654321){
+        return false;
+    }
+    if(visited[num])
+        return true;
+    visited[num]=true;
+    setState(num);
+    for(int i=0;i<4;i++){
+        state[zp]=state[(zp+d[i]+9)%9];
+        state[(zp+d[i]+9)%9]=0;
+        q.push(getVal());
+        cnt.push(cnt.front()+1);
+        setState(num);
+    }
+    return true;
 }
-
-string swap4(string str){
-    string s = str;
-    int zero = s.find("0");
-    int change = (zero + 2 + 9)%9;
-    char temp;
-    temp = s[zero];
-    s[zero] = s[change];
-    s[change] = temp;
-    return s;
-}
-
-queue <state> q;
-map <string,int> visit;
-
-int main(int argc, const char * argv[]) {
-    q.push(state(0,start));
-    int ans = 0;
-    while(!q.empty()){
-        
-        state temp = q.front();
+ 
+int main(){
+    setState(12345678);
+    q.push(12345678);
+    cnt.push(0);
+    while(extend() && !cnt.empty()){
         q.pop();
-        cout<<temp.deep<<endl;
-        if(temp.str == over) {ans = temp.deep; break;}
-        
-        visit[temp.str]++;
-        
-        if(!visit.count(swap1(temp.str)))   q.push(state(temp.deep+1,swap1(temp.str)));
-        if(!visit.count(swap2(temp.str)))   q.push(state(temp.deep+1,swap2(temp.str)));
-        if(!visit.count(swap3(temp.str)))   q.push(state(temp.deep+1,swap3(temp.str)));
-        if(!visit.count(swap4(temp.str)))   q.push(state(temp.deep+1,swap4(temp.str)));
-        
+        cnt.pop();
     }
-    cout<<"The ans is :"<<ans<<endl;
+    cout<<cnt.front()<<endl;
     return 0;
 }
+
