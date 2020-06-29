@@ -1,67 +1,78 @@
-//
-//  main.cpp
-//  2017_跳蚱蜢
-//
-//  Created by VachelChen on 2020/2/24.
-//  Copyright © 2020 VachelChen. All rights reserved.
-//
 #include <iostream>
-#include <queue>
+#include <fstream>
+#include <algorithm>
+#include <cstring>
+#include <vector>
 using namespace std;
  
-int d[4]={-2,-1,1,2};
+#define MAXTOTAL    10001
+#define MAXAMOUNT    101
  
-int state[9];
-int zp;//空盘位置
-int visited[876543211]={0};
+int f[MAXTOTAL][MAXAMOUNT];            //f[n][m]表示 前n个数中 得出的 最接近m 的值
+bool has[MAXTOTAL][MAXAMOUNT];        //has[n][m]表示在前n个数中得出最接近m的值时 是否用到c[n]
+int* c = NULL;
  
-queue<int> q;
-queue<int> cnt;
- 
-void setState(int num){
-    for(int i=8;i>=0;i--){
-        if(num%10==0)
-            zp=i;
-        state[i]=num%10;
-        num/=10;
+int calcClosestSum(int n,int m)
+{
+    memset(f,0,sizeof(int)*MAXTOTAL*MAXAMOUNT);
+    memset(has,false,sizeof(bool)*MAXTOTAL*MAXAMOUNT);
+    int i,j;
+    int sec; // 表示放入c[i]后的值
+    for(i=1;i<n+1;i++)
+    {
+        for(j=1;j<=m;j++)
+        {
+            if(j-c[i]<0) sec=0; // 如果不满足小于等于j，则说明放入后是非法值，可以设其为0，表示面值无效。
+            else sec = f[i-1][j-c[i]]+c[i]; // 正常情况下计算放入c[i]的值。
+            if(f[i-1][j] > sec)
+            {
+                f[i][j]=f[i-1][j];
+            }else
+            {
+                f[i][j]=sec;
+                has[i][j]=true;        //用到c[i]了 设has[i][j]为true
+            }
+        }
     }
+    return f[n][m];
 }
  
-int getVal(){
-    int num=0;
-    for(int i=0;i<9;i++)
-        num=num*10+state[i];
-    return num;
+bool cmp(const int& A,const int& B)
+{
+    return A>B;
 }
  
-bool extend(){
-    int num=q.front();
-    if(num==87654321){
-        return false;
-    }
-    if(visited[num])
-        return true;
-    visited[num]=true;
-    setState(num);
-    for(int i=0;i<4;i++){
-        state[zp]=state[(zp+d[i]+9)%9];
-        state[(zp+d[i]+9)%9]=0;
-        q.push(getVal());
-        cnt.push(cnt.front()+1);
-        setState(num);
-    }
-    return true;
-}
+int main()
+{
+   int n,m;
+   cin>>n>>m;
+   c = new int[n+1];
+   memset(c,0,sizeof(int)*(n+1));
  
-int main(){
-    setState(12345678);
-    q.push(12345678);
-    cnt.push(0);
-    while(extend() && !cnt.empty()){
-        q.pop();
-        cnt.pop();
-    }
-    cout<<cnt.front()<<endl;
-    return 0;
+   int i;
+   for(i=0;i<n;i++)
+   {
+        cin>>c[i+1];
+   }
+   sort(&c[1],&c[n+1],cmp);        //从大到小排序
+ 
+   int res = calcClosestSum(n,m);
+   if(res==m)                    //有解
+   {
+        vector<int> v;
+        while(m)
+        {
+            while(!has[n][m])
+                n--;
+            v.push_back(c[n]);
+            m = m - c[n];
+            n--;
+        }
+        for(i=0;i<v.size()-1;i++)
+            cout<<v[i]<<' ';
+        cout<<v[i]<<endl;
+   }else                        //无解
+       cout<<"No Solution"<<endl;
+   return 0;
 }
 

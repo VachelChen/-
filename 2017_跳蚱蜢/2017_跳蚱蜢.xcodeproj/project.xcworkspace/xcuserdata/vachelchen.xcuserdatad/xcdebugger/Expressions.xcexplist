@@ -6,16 +6,22 @@
          contextName = "main:main.cpp">
          <PersistentStrings>
             <PersistentString
-               value = "swap3(temp.str)">
+               value = "swap4(temp.str)">
             </PersistentString>
             <PersistentString
-               value = "swap4(temp.str)">
+               value = "swap3(temp.str)">
             </PersistentString>
             <PersistentString
                value = "swap2(temp.str)">
             </PersistentString>
             <PersistentString
                value = "swap1(temp.str)">
+            </PersistentString>
+            <PersistentString
+               value = "has">
+            </PersistentString>
+            <PersistentString
+               value = "f">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
