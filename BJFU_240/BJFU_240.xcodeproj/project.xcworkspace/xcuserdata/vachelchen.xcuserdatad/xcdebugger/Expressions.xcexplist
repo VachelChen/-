@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "main:main.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "s2">
+            </PersistentString>
+            <PersistentString
+               value = "str[index]">
+            </PersistentString>
+            <PersistentString
+               value = "s1">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "PushStack2(SqStack2&amp;, double):main.cpp">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
