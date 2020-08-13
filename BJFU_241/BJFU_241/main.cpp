@@ -26,7 +26,7 @@ int InitDS(DblStack &ds,int m){
     ds.top[1] = m;
     ds.bot[0] = 0;
     ds.bot[1] = m-1;
-    ds.m = m;
+    ds.m = maxn;
     return ok;
 }
 
@@ -38,29 +38,21 @@ bool EmptyDS(DblStack ds){
         return false;
 }
 
-bool FullDS(DblStack ds){
-    if(ds.top[1] - ds.top[0] == 1)
-        return true;
-    else
-        return false;
-}
-
-int InsertDS(DblStack ds,bool flag,int m){
+int InsertDS(DblStack &ds,bool flag,int m){
     for (int i=0; i<m; i++) {
-        if (FullDS(ds)) return error;
+        int x;
+        cin >> x;
+        if (!flag) {
+            ds.V[++ds.top[0]] = x;
+        }
         else{
-            if (!flag) {
-                ds.V[++ds.top[0]] = m;
-            }
-            else{
-                ds.V[--ds.top[1]] = m;
-            }
+            ds.V[--ds.top[1]] = x;
         }
     }
     return ok;
 }
 
-int PushDS(DblStack ds,bool flag,int m){
+int PushDS(DblStack &ds,bool flag){
     if (EmptyDS(ds)) return error;
     else{
         if (!flag) {
@@ -82,7 +74,35 @@ int main(int argc, const char * argv[]) {
         DblStack ds;
         InitDS(ds, m);
         InsertDS(ds,0,e0);
-        InsertDS(ds,0,e1);
+        InsertDS(ds,1,e1);
+        int a[maxn],b[maxn];
+        for (int i=0; i<d0; i++) {
+            a[i] = PushDS(ds, 0);
+        }
+        for (int i=0; i<d1; i++) {
+            b[i] = PushDS(ds, 1);
+        }
+        cout<<(e0+e1 == m?1:0)<<endl;
+        if (!d0) {
+            cout<<(d0 == e0?0:1)<<endl;
+        }
+        else{
+            cout<<a[0];
+            for (int i=1; i<d0; i++) {
+                cout<<" "<<a[i];
+            }
+            cout<<" "<<(d0 == e0?0:1)<<endl;
+        }
+        if (!d1) {
+            cout<<(d1 == e1?0:1)<<endl;
+        }
+        else{
+            cout<<b[0];
+            for (int i=1; i<d1; i++) {
+                cout<<" "<<b[i];
+            }
+            cout<<" "<<(d1 == e1?0:1)<<endl;
+        }
     }
     return 0;
 }
