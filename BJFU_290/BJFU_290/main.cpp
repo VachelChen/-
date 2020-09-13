@@ -19,47 +19,56 @@ typedef struct node{
 int once;
 
 void Create(linklist &t,int x){
-    if (t) {
-        if (t->data == x) {
-            t->count++;
+    linklist s;
+    s = new node;
+    s->data = x;
+    s->count = 0;
+    s->llink = s->rlink = NULL;
+    if (!t) {
+        t = s;
+        return;
+    }
+    linklist q = t,p;
+    while (q) {
+        if (q->data == x) {
+            q->count++;
             return;
         }
-        t->data<x?Create(t->rlink, x):Create(t->llink, x);
+        p = q;
+        if(q->data > x)
+            q=q->llink;
+        else
+            q=q->rlink;
     }
-    else{
-        t = new node;
-        t->data = x;
-        t->count = 0;
-        t->llink = NULL;
-        t->rlink = NULL;
-    }
+    if(p->data > x)
+        p->llink = s;
+    else
+        p->rlink = s;
 }
 
-void Search(linklist t,int x){
-    if(t){
-        Search(t->llink,x);
+void Sreach(linklist t){
+    if (t) {
+        Sreach(t->llink);
         if (!once) {
-            once = 1;
             cout<<t->data;
+            once=1;
         }
-        else{
+        else
             cout<<" "<<t->data;
-        }
-        Search(t->rlink,x);
+        Sreach(t->rlink);
     }
 }
 
-void Show(linklist t){
-    if(t){
-        Show(t->llink);
+void Sreach2(linklist t){
+    if (t) {
+        Sreach2(t->llink);
         if (!once) {
-            once = 1;
             cout<<t->count;
+            once=1;
         }
-        else{
+        else
             cout<<" "<<t->count;
-        }
-        Show(t->rlink);
+        Sreach2(t->rlink);
     }
 }
 
@@ -67,22 +76,20 @@ int main(int argc, const char * argv[]) {
     int n;
     while (cin >> n) {
         if(!n)  break;
+        linklist t = NULL;
         int a[maxn];
         for (int i=0; i<n; i++) {
             cin >> a[i];
+            Create(t,a[i]);
         }
         int x;
         cin >> x;
-        linklist t = NULL;
-        for (int i=0; i<n; i++) {
-            Create(t,a[i]);
-        }
         Create(t, x);
         once = 0;
-        Search(t,x);
+        Sreach(t);
         cout<<endl;
         once = 0;
-        Show(t);
+        Sreach2(t);
         cout<<endl;
     }
     return 0;
